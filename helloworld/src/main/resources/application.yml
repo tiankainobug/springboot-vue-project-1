@@ -1,0 +1,13 @@
+server:
+    port: 8080
+spring:
+    devtools:
+        restart:
+            # 热部署生效
+            enabled: true
+            # 设置重启目录
+            additional-paths: src/main/java
+            # 设置排除目录
+            exclude: src/main/resources/static
+    jmx:
+        enabled: false
