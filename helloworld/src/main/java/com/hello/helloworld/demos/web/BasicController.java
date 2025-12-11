@@ -16,52 +16,43 @@
 
 package com.hello.helloworld.demos.web;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
-@Controller
+@RestController
 public class BasicController {
 
-    // http://127.0.0.1:8080/hello?name=lisi
-    @RequestMapping("/hello")
-    @ResponseBody
-    public String hello(@RequestParam(name = "name", defaultValue = "unknown user") String name) {
-        return "Hello4 " + name;
+    // http://localhost:8080/hello?name=lisi&phone=123
+    @GetMapping("/hello")
+    public String hello(String name, String phone) {
+        return "hello " + name + phone;
     }
 
-    // http://127.0.0.1:8080/user
-    @RequestMapping("/user")
-    @ResponseBody
-    public User user() {
-        User user = new User();
-        user.setName("theonefx");
-        user.setAge(666);
-        return user;
+    @GetMapping("/user")
+    public String user(@RequestParam(value = "name", required = false) String nickName) {
+        return "user" + nickName;
     }
 
-    // http://127.0.0.1:8080/save_user?name=newName&age=11
-    @RequestMapping("/save_user")
-    @ResponseBody
-    public String saveUser(User u) {
-        return "user will save: name=" + u.getName() + ", age=" + u.getAge();
-    }
-
-    // http://127.0.0.1:8080/html
-    @RequestMapping("/html")
-    public String html() {
-        return "index.html";
-    }
-
-    @ModelAttribute
-    public void parseUser(@RequestParam(name = "name", defaultValue = "unknown user") String name
-            , @RequestParam(name = "age", defaultValue = "12") Integer age, User user) {
-        user.setName("zhangsan");
-        user.setAge(18);
+    /**
+     * @param file
+     * @return
+     */
+    @PostMapping("/upload")
+    public String upload(MultipartFile file, HttpServletRequest request) {
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+        System.out.println(file.getContentType());
+        String path = request.getServletContext().getRealPath("/upload");
+        System.out.println(path);
+        return "上传成功";
     }
 }
