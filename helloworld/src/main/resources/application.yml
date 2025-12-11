@@ -17,7 +17,7 @@ spring:
     web:
         resources:
             # 静态资源存储路径
-            static-locations: classpath:/static/
+            static-locations: /upload/
     servlet:
         multipart:
             # 最大上传单文件大小

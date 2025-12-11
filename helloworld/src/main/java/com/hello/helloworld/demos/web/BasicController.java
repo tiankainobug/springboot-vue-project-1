@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
@@ -53,6 +54,22 @@ public class BasicController {
         System.out.println(file.getContentType());
         String path = request.getServletContext().getRealPath("/upload");
         System.out.println(path);
+
+        saveFile(file, request);
         return "上传成功";
+    }
+
+    private void saveFile(MultipartFile file, HttpServletRequest request) {
+        String fileName = file.getOriginalFilename();
+        String path = request.getServletContext().getRealPath("/upload");
+        File file1 = new File(path);
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+        try {
+            file.transferTo(new File(file1 + "/" + fileName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
