@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.hello.helloworld.demos.web;
+package com.hello.helloworld.controller;
 
-import org.springframework.http.HttpRequest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +48,7 @@ public class BasicController {
      * @param file
      * @return
      */
+    @ApiOperation(value = "上传接口")
     @PostMapping("/upload")
     public String upload(MultipartFile file, HttpServletRequest request) {
         System.out.println(file.getOriginalFilename());

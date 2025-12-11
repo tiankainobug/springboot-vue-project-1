@@ -13,11 +13,13 @@ spring:
         enabled: false
     mvc:
         # 静态资源访问路径
-        static-path-pattern: static/**
+#        static-path-pattern: static/**
+        pathmatch:
+            matching-strategy: ant_path_matcher
     web:
         resources:
             # 静态资源存储路径
-            static-locations: /upload/
+#            static-locations: /upload/
     servlet:
         multipart:
             # 最大上传单文件大小
