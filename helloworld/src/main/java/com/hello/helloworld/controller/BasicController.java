@@ -39,10 +39,10 @@ public class BasicController {
         return "hello " + name + phone;
     }
 
-    @GetMapping("/user")
-    public String user(@RequestParam(value = "name", required = false) String nickName) {
-        return "user" + nickName;
-    }
+    // @GetMapping("/user")
+    // public String user(@RequestParam(value = "name", required = false) String nickName) {
+    //     return "user" + nickName;
+    // }
 
     /**
      * @param file

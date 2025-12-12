@@ -29,7 +29,7 @@ spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://58.87.103.30:3306/liulaoshi?serverTimezone=GMT%2B8
-        username: root
+        username: tiankai
         password: Qq133242
 mybatis-plus:
     configuration:
