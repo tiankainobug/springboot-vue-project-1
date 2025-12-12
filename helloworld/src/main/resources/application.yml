@@ -26,3 +26,11 @@ spring:
             max-file-size: 10MB
             # 最大上传总大小
             max-request-size: 10MB
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://58.87.103.30:3306/liulaoshi?serverTimezone=GMT%2B8
+        username: root
+        password: Qq133242
+mybatis-plus:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
