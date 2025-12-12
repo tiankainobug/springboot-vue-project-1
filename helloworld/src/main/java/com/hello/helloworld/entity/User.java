@@ -1,8 +1,11 @@
 package com.hello.helloworld.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 功能：
@@ -15,4 +18,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+
+    @TableField(exist = false)
+    private List<Order> orders;
 }
