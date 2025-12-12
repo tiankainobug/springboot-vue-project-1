@@ -1,12 +1,15 @@
 package com.hello.helloworld.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hello.helloworld.entity.User;
+import com.hello.helloworld.entity.UserPageVo;
 import com.hello.helloworld.mapper.UserMapper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,5 +57,28 @@ public class UserController {
         }
         return "更新失败";
     }
+
+    @PostMapping("/getUserByPage")
+public List<User> getUserByPage(@RequestBody UserPageVo pageVo) {
+    try {
+        Page<User> userPage = new Page<>(pageVo.getCurrentPage(), pageVo.getPageSize());
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+        // 对用户输入进行安全处理，防止SQL注入
+        if (pageVo.getUsername() != null && !pageVo.getUsername().trim().isEmpty()) {
+            String safeUsername = pageVo.getUsername().trim()
+                .replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_");
+            queryWrapper.like("username", safeUsername);
+        }
+
+        Page<User> userPage1 = userMapper.selectPage(userPage, queryWrapper);
+        return userPage1.getRecords();
+    } catch (Exception e) {
+        // 记录异常日志
+        throw new RuntimeException("查询用户分页数据失败", e);
+    }
+}
 
 }
